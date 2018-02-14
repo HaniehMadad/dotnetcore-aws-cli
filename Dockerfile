@@ -1,6 +1,7 @@
-FROM hanieh/dotnetcore-aws-cli
+FROM microsoft/aspnetcore-build:2.0
 
-# Install Docker
-ENV DOTNET_SKIP_FIRST_TIME_EXPERIENCE=1
-ENV DOTNET_CLI_TELEMETRY_OPTOUT=1
-RUN curl -fsSL get.docker.com -o get-docker.sh && sh get-docker.sh
+RUN curl "https://s3.amazonaws.com/aws-cli/awscli-bundle.zip" -o "awscli-bundle.zip"
+RUN apt-get update
+RUN apt-get install unzip
+RUN unzip awscli-bundle.zip
+RUN ./awscli-bundle/install -i /usr/local/aws -b /usr/local/bin/aws
